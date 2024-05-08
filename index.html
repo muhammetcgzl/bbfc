@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Unlimited Lingo - A word game</title>
+    <title>LINGO - BBFC</title>
     <style>
       body {
         display: flex;
@@ -10,9 +10,9 @@
         align-items: center;
         margin: 0;
         width: 100vw;
-        background: #000;
+        background: #000000;
         font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-        color: #d7dadc;
+        color: #ffffff;
         overflow: auto;
       }
       button {
@@ -26,7 +26,7 @@
         height: 20px;
         position: relative;
         border-radius: 50px;
-        background: #252525;
+        background: #565758;
         cursor: pointer;
       }
       .slider.on {
@@ -449,7 +449,7 @@
         <button id="howtoplay"></button>
       </div>
       <div class="title">
-        <span>Lıngo</span>
+        <span>LINGO</span>
         <span>BBFC</span>
       </div>
       <div class="header-actions">
@@ -472,49 +472,50 @@
       <div class="modal-title"></div>
       <div class="modal-content"></div>
     </div>
-    <div class="overlay"><div class="howtoplay">
-      <button class="howtoplay-close"></button>
-      <b style="align-self: center; font-size: 17px;">HOW TO PLAY</b>
-      <br>
-      <span>Guess the <b>WORDLE</b> in 6 attempts.</span>
-      <br>
-      <span>Each guess must be a valid 5 letter word. Hit the Enter button to submit an attempt.</span>
-      <br>
-      <span>After each guess, the color of the tiles will change to show how close your guess was to the word.</span>
-      <br>
-      <div class="line-sep"></div>
-      <br>
-      <b>Examples</b>
-      <div style="display: flex;" class="letters-example">
-        <div style="background: #538d4e; border-color: #538d4e;">W</div>
-        <div>E</div>
-        <div>A</div>
-        <div>R</div>
-        <div>Y</div>
-      </div>
-      <span>The letter W is in the word and in the correct spot.</span>
-      <div style="display: flex;" class="letters-example">
-        <div>P</div>
-        <div style="background: #b59f3b; border-color: #b59f3b;">I</div>
-        <div>L</div>
-        <div>L</div>
-        <div>S</div>
-      </div>
-      <span>The letter I is in the word but in the wrong spot.</span>
-      <div style="display: flex;" class="letters-example">
-        <div>V</div>
-        <div>A</div>
-        <div>G</div>
-        <div style="background: #3a3a3c; border-color: #3a3a3c;">U</div>
-        <div>E</div>
-      </div>
-      <span>The letter U is not in the word in any spot.</span>
+    <div class="overlay">
+      <div class="howtoplay">
+        <button class="howtoplay-close"></button>
+        <b style="align-self: center; font-size: 17px;">HOW TO PLAY</b>
+        <br>
+        <span>Guess the <b>WORDLE</b> in 6 attempts.</span>
+        <br>
+        <span>Each guess must be a valid 5 letter word. Hit the Enter button to submit an attempt.</span>
+        <br>
+        <span>After each guess, the color of the tiles will change to show how close your guess was to the word.</span>
+        <br>
+        <div class="line-sep"></div>
+        <br>
+        <b>Examples</b>
+        <div style="display: flex;" class="letters-example">
+          <div style="background: #538d4e; border-color: #538d4e;">W</div>
+          <div>E</div>
+          <div>A</div>
+          <div>R</div>
+          <div>Y</div>
         </div>
-          <div class="settings">
-            <button class="settings-close"></button>
-            <br>
-           <b style="align-self: center; font-size: 17px;">SETTINGS</b>
+        <span>The letter W is in the word and in the correct spot.</span>
+        <div style="display: flex;" class="letters-example">
+          <div>P</div>
+          <div style="background: #b59f3b; border-color: #b59f3b;">I</div>
+          <div>L</div>
+          <div>L</div>
+          <div>S</div>
         </div>
+        <span>The letter I is in the word but in the wrong spot.</span>
+        <div style="display: flex;" class="letters-example">
+          <div>V</div>
+          <div>A</div>
+          <div>G</div>
+          <div style="background: #3a3a3c; border-color: #3a3a3c;">U</div>
+          <div>E</div>
+        </div>
+        <span>The letter U is not in the word in any spot.</span>
+      </div>
+      <div class="settings">
+        <button class="settings-close"></button>
+        <br>
+        <b style="align-self: center; font-size: 17px;">SETTINGS</b>
+      </div>
     </div>
     <div class="backdrop"></div>
   </body>
@@ -847,7 +848,7 @@
           displayToast('Not enough letters')
         }
         return
-      }else if (state.wordsTried.includes(word)) {
+      } else if (state.wordsTried.includes(word)) {
         return displayToast('Repeated word guess')
       } else if (isGameOver()) {
         return
@@ -881,7 +882,7 @@
       const stateToConsider = isGameOver() ? state.previousAttemptState : state
       return [
         dictionary.wordsGuessable,
-        dictionary.acceptedInputs
+        dictionary.wordsAcceptable
       ]
         .flatMap(s => Array.from(s))
         .filter(w => !checkHardInput(w, state.config.ultraHardMode, stateToConsider))
@@ -1293,14 +1294,14 @@
       })
     }
 
-       function setupDictionary() {
-     for (let word of wordsGuessable) {
-       addWordToDict(word, true);
-     }
-     for (let word of acceptedInputs) {
-      addWordToDict(word, false);
-     }
-   }
+    function setupDictionary () {
+      for (let word of wordsGuessable) {
+        addWordToDict(word, true)
+      }
+      for (let word of wordsAcceptedAsInput) {
+        addWordToDict(word, false)
+      }
+    }
 
     function setupForCurrentState () {
       document.querySelector('.end-actions span').innerText = state.wordToGuess.toUpperCase()
@@ -1431,7 +1432,7 @@
 
     const SVG_HOWTO = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path fill="currentColor" d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"></path></svg>'
 
-    const SVG_STATS = ''
+    const SVG_STATS = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path fill="currentColor" d="M16,11V3H8v6H2v12h20V11H16z M10,5h4v14h-4V5z M4,11h4v8H4V11z M20,19h-4v-6h4V19z"></path></svg>'
 
     const SVG_SETTINGS = ''
 
@@ -1445,30 +1446,19 @@
       if (!dictInfo) {
         dictInfo = {
           wordsGuessable: new Set(),
-          acceptedInputs: new Set()
+          wordsAcceptable: new Set()
         }
         dictionaries[length] = dictInfo
       }
       if (guessable) {
         dictInfo.wordsGuessable.add(word)
       } else {
-        dictInfo.acceptedInputs.add(word)
-      } 
+        dictInfo.wordsAcceptable.add(word)
+      }
     }
 
-    const wordsGuessable = ["water", "apple", "chair", "house", "table", "bread", "earth", "clock", "lemon", "grape", "smile", "plant", "queen", 
-     "music", "black", "green", "white", "brown", "money", "angel", "candy", "child", "clear", "happy", "dress", "beach", "round", "dance", "sweet",
-     "stars", "peach", "pizza", "tiger", "train", "radio", "river", "shoes", "paint", "stone", "ghost", "magic", "panda", "koala", "snake", "ocean", 
-     "never", "often", "relax", "study", "uncle", "watch", "night", "coach", "place", "sleep", "rolls", "start", "actor", "awful", "great", "flour",
-     "honey", "juice", "onion", "sauce", "snack", "basil", "olive", "guide", "spicy", "price", "taste", "throw", "order", "pence", "pound", "small", 
-     "drive", "nurse", "extra", "phone", "guest", "curly", "short", "boots", "jeans", "dream", "space", "horse", "paper", "Gamer", "Shirt", "Honor", 
-     "First", "Faint", "Taunt", "Tower", "Glass", "Youth", "Toast", "Booze", "Smart", "Chair", "Heart", "Block", "Cloud", "Fruit", "Grass", "Light", 
-     "Watch", "Sugar", "Maple", "Brain", "Robot", "Mouse", "Nigga", "Torso", "Upper", "Guard", "Sword", "Crown", "Print", "Money", "Brick", "argue", 
-     "power", "value", "event", "drink", "piece", "speak", "reach", "spend", "sport", "storm", "visit", "world", "scene", "leave ", "movie", "adopt", 
-     "click", "state", "teach", "couch", "alive", "wrong", "shame", "court", "quick", "stair", "eagle", "flash", "basic", "knife", "quiet", "angry", 
-     "break", "write",]
+    const wordsGuessable = [ "water", "apple", "chair", "house", "table", "bread", "earth", "clock", "lemon", "grape", "smile", "plant", "queen", "music", "black", "green", "white", "brown", "money", "angel", "candy", "child", "clear", "happy", "dress", "beach", "round", "dance", "sweet", "stars", "peach", "pizza", "tiger", "train", "radio", "river", "shoes", "paint", "stone", "ghost", "magic", "panda", "koala", "snake", "ocean", "never", "often", "relax", "study", "uncle", "watch", "night", "coach", "place", "sleep", "start", "actor", "awful", "great", "flour", "honey", "juice", "onion", "sauce", "snack", "basil", "olive", "guide", "spicy", "price", "taste", "throw", "order", "pence", "pound", "small", "drive", "nurse", "extra", "phone", "guest", "curly", "short", "boots", "jeans", "dream", "space", "horse", "paper", "gamer", "shirt", "honor", "first", "faint", "taunt", "tower", "glass", "youth", "toast", "booze", "smart", "chair", "heart", "block", "cloud", "cruit", "grass", "light", "watch", "sugar", "maple", "brain", "robot", "mouse", "nigga", "torso", "upper", "guard", "sword", "crown", "print", "money", "brick", "argue", "power", "value", "event", "drink", "piece", "speak", "reach", "spend", "sport", "storm", "visit", "world", "scene", "leave", "movie", "adopt", "click", "state", "teach", "couch", "alive", "wrong", "shame", "court", "quick", "stair", "eagle", "flash", "basic", "knife", "quiet", "angry", "break", "write", ]
 
-     const acceptedInputs = [""]; // Boş string listesi, herhangi bir girdi kabul edilecek
-
+    const wordsAcceptedAsInput = [ ]
   </script>
 </html>
